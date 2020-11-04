@@ -1,5 +1,8 @@
 package com.kongallis.forum.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -9,14 +12,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonIgnore
     @NotBlank
     private String firstName;
+    @JsonIgnore
     @NotBlank
     private String lastName;
     @NotBlank
+    @JsonProperty("username")
     private String userName;
     @NotBlank
     private String name;
+    @JsonIgnore
     @NotBlank
     private String password;
     @NotBlank
@@ -84,8 +91,9 @@ public class User {
 
     // Implement getter for the Full Name
     public String getName() {
-        return String.format("%s %s", getFirstName(), getLastName());
+        return String.format("%s %s", this.getFirstName(), this.getLastName());
     }
+
 
 
 }
