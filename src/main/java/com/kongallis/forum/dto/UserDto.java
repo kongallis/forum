@@ -1,12 +1,15 @@
 package com.kongallis.forum.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserDto {
 
     private Long id;
     private String name;
     private String email;
     private String avatar;
-    private String username;
+    @JsonProperty("username")
+    private String usernName;
 
 
     public Long getId() {
@@ -42,10 +45,10 @@ public class UserDto {
     }
 
     public String getUsername() {
-        return username;
+        return usernName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String usernName) {
+        this.usernName = usernName;
     }
 }
