@@ -1,6 +1,5 @@
 package com.kongallis.forum.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -12,10 +11,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonIgnore
     @NotBlank
     private String firstName;
-    @JsonIgnore
     @NotBlank
     private String lastName;
     @NotBlank
@@ -23,7 +20,6 @@ public class User {
     private String userName;
     @NotBlank
     private String name;
-    @JsonIgnore
     @NotBlank
     private String password;
     @NotBlank

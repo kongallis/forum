@@ -2,6 +2,7 @@ package com.kongallis.forum.services;
 
 import com.kongallis.forum.dao.UserRepository;
 import com.kongallis.forum.dto.UserDto;
+import com.kongallis.forum.exceptions.UserNotFoundException;
 import com.kongallis.forum.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,12 @@ public class UserServiceImpl {
         userDto.setAvatar(user.getAvatar());
         return userDto;
     }
+
+    @Transactional
+    public UserDto readSingleUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("For id " + id));
+        return mapFromUserToDto(user);
+    }
+
+
 }
