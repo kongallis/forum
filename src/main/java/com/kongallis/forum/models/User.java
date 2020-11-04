@@ -1,7 +1,5 @@
 package com.kongallis.forum.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,11 +24,7 @@ public class User {
     @NotBlank
     private String email;
     private String avatar;
-    //
 
-//    @OneToMany
-//    @JoinColumn(name = "user_id")
-//    private List<Post> postList;
 
 
     @OneToMany(targetEntity=Post.class, mappedBy="userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)

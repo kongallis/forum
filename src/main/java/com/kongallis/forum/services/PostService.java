@@ -35,13 +35,16 @@ public class PostService {
         return posts.stream().map(this::mapFromPostToDto).collect(toList());
 
     }
-
+    
 
     private PostDto mapFromPostToDto(Post post) {
         PostDto postDto = new PostDto();
+        postDto.setId(post.getPostId());
         postDto.setTitle(post.getTitle());
         postDto.setCreatedDate(post.getCreatedDate());
         postDto.setBody(post.getBody());
+        postDto.setUserId(post.getUserId().getId());
+        postDto.setUserId(post.getUserId().getId());
         return postDto;
     }
 }

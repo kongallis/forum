@@ -9,7 +9,7 @@ public class UserDto {
     private String email;
     private String avatar;
     @JsonProperty("username")
-    private String usernName;
+    private String userName;
 
 
     public Long getId() {
@@ -45,10 +45,10 @@ public class UserDto {
     }
 
     public String getUsername() {
-        return usernName;
+        return userName;
     }
 
-    public void setUsername(String usernName) {
-        this.usernName = usernName;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 }

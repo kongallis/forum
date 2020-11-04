@@ -6,8 +6,10 @@ import java.time.Instant;
 
 public class PostDto {
 
+    private Long userId;
+    @JsonProperty("postId")
+    private Long id;
     private String title;
-    @JsonProperty("creation date")
     private Instant createdDate;
     private String body;
 
@@ -33,5 +35,21 @@ public class PostDto {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
