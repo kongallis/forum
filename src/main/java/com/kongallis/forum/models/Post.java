@@ -4,6 +4,7 @@ package com.kongallis.forum.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table
@@ -16,7 +17,7 @@ public class Post {
     private String title;
     @NotBlank
     private String body;
-    private Instant createdDate;
+    private Date createdDate;
 
 //    @ManyToOne(optional = false)
 //    @JoinColumn(name = "user_id", insertable = false, updatable = false)
@@ -51,11 +52,11 @@ public class Post {
         this.body = body;
     }
 
-    public Instant getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Instant createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

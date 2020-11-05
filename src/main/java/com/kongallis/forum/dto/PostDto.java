@@ -3,6 +3,7 @@ package com.kongallis.forum.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
+import java.util.Date;
 
 public class PostDto {
 
@@ -10,7 +11,7 @@ public class PostDto {
     @JsonProperty("postId")
     private Long id;
     private String title;
-    private Instant createdDate;
+    private Date createdDate;
     private String body;
 
     public String getTitle() {
@@ -21,11 +22,11 @@ public class PostDto {
         this.title = title;
     }
 
-    public Instant getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Instant createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

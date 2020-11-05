@@ -28,10 +28,8 @@ public class PostService {
 
     @Transactional
     public List<PostDto> listAllPostsByUserId(Long userId) {
-
         User user = userRepository.findById(userId).get();
         List<Post> posts = user.getPostList();
-//        Iterable<Post> posts = postRepository.findAllById(userId).orElseThrow(() -> new PostNotFoundException("For id " + userId));
         return posts.stream().map(this::mapFromPostToDto).collect(toList());
 
     }
@@ -44,7 +42,26 @@ public class PostService {
         postDto.setCreatedDate(post.getCreatedDate());
         postDto.setBody(post.getBody());
         postDto.setUserId(post.getUserId().getId());
-        postDto.setUserId(post.getUserId().getId());
         return postDto;
     }
+
+    @Transactional
+    public PostDto readSinglePostFromSingleUser(Long userId, Long postId) {
+        User user = userRepository.findById(userId).get();
+        List<Post> posts = user.getPostList();
+        boolean foundPost = false;
+        for (Post singlePost  : posts) {
+            if (singlePost.getPostId() == postId) {
+                foundPost = true;
+                break;
+            }
+        }
+        if (foundPost) {
+            return mapFromPostToDto(postRepository.findById(postId).get());
+        }
+        throw new PostNotFoundException("Post not found....");
+    }
+
+
+
 }

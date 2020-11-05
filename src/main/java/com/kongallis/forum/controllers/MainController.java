@@ -41,5 +41,10 @@ public class MainController {
         return new ResponseEntity(postService.listAllPostsByUserId(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{userId}/posts/{postId}", produces = "application/json")
+    public ResponseEntity<PostDto> getSinglePostOfUser(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+                return new ResponseEntity(postService.readSinglePostFromSingleUser(userId, postId), HttpStatus.OK);
+    }
+
 
 }
