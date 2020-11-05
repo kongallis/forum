@@ -1,6 +1,7 @@
 package com.kongallis.forum.services;
 
 import com.kongallis.forum.dao.UserRepository;
+import com.kongallis.forum.dto.PaginationResponse;
 import com.kongallis.forum.dto.UserDto;
 import com.kongallis.forum.exceptions.UserNotFoundException;
 import com.kongallis.forum.models.User;
@@ -44,7 +45,7 @@ public class UserServiceImpl {
     }
 
     // pageIndex denotes from where to start
-    public List<UserDto> getAllUsersPaginated(int pageIndex, int pageSize) {
+    public PaginationResponse getAllUsersPaginated(int pageIndex, int pageSize) {
         List<UserDto> users = listAllUsers();
 
             int startingPoint = (pageIndex - 1) * pageSize;
@@ -52,8 +53,15 @@ public class UserServiceImpl {
             if (users.size() < endingPoint) {
                 endingPoint = users.size();
             }
-            return users.subList(startingPoint, endingPoint);
+            return mapForPagination(users.subList(startingPoint, endingPoint), users.size());
 
+    }
+
+    private PaginationResponse mapForPagination(List<UserDto> users, int totalUsers) {
+        PaginationResponse pagination = new PaginationResponse();
+        pagination.setItems(users);
+        pagination.setTotal(new Long(totalUsers));
+        return pagination;
     }
 
 
