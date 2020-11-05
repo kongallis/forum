@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,6 +28,10 @@ public class Post {
     @ManyToOne()
     @JoinColumn
     private User userId;
+
+    @OneToMany(targetEntity=Comment.class, mappedBy="post", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> commentList;
+
 
     public Long getPostId() {
         return postId;

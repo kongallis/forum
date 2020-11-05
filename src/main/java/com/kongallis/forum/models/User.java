@@ -30,6 +30,9 @@ public class User {
     @OneToMany(targetEntity=Post.class, mappedBy="userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> postList;
 
+    @OneToMany(targetEntity=Comment.class, mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> commentList;
+
 
 
     public Long getId() {
@@ -99,5 +102,13 @@ public class User {
 
     public void setPostList(List<Post> postList) {
         this.postList = postList;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 }
