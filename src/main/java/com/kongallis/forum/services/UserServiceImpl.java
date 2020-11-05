@@ -43,5 +43,18 @@ public class UserServiceImpl {
         return mapFromUserToDto(user);
     }
 
+    // pageIndex denotes from where to start
+    public List<UserDto> getAllUsersPaginated(int pageIndex, int pageSize) {
+        List<UserDto> users = listAllUsers();
+
+            int startingPoint = (pageIndex - 1) * pageSize;
+            int endingPoint = (pageIndex) * pageSize;
+            if (users.size() < endingPoint) {
+                endingPoint = users.size();
+            }
+            return users.subList(startingPoint, endingPoint);
+
+    }
+
 
 }

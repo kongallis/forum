@@ -13,7 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.QueryParam;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -25,10 +28,18 @@ public class MainController {
     PostService postService;
     @Autowired
     CommentService commentService;
-
+    
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<UserDto>> getUsers() {
+    public ResponseEntity<List<UserDto>> getUsers(@QueryParam("page") Optional<Integer> page, @QueryParam("limit") Optional<Integer> limit) {
+        System.out.println( ((Object)page).getClass() + " CLASS ");
+        System.out.println("PAGE = " + page + " IS PRESENT " + page.isPresent());
+        System.out.println("LIMIT + " + limit + " IS PRESENT " + limit.isPresent());
+
+        if (page.isPresent() && limit.isPresent()) {
+
+            return new ResponseEntity<>(userService.getAllUsersPaginated(page.get(), limit.get()), HttpStatus.OK);
+        }
         return new ResponseEntity<>(userService.listAllUsers(), HttpStatus.OK);
     }
 
