@@ -1,9 +1,11 @@
 package com.kongallis.forum.controllers;
 
 
+import com.kongallis.forum.dto.CommentDto;
 import com.kongallis.forum.dto.PostDto;
 import com.kongallis.forum.dto.UserDto;
 import com.kongallis.forum.models.User;
+import com.kongallis.forum.services.CommentService;
 import com.kongallis.forum.services.PostService;
 import com.kongallis.forum.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class MainController {
     UserServiceImpl userService;
     @Autowired
     PostService postService;
+    @Autowired
+    CommentService commentService;
 
 
     @GetMapping(produces = "application/json")
@@ -46,7 +50,10 @@ public class MainController {
                 return new ResponseEntity(postService.readSinglePostFromSingleUser(userId, postId), HttpStatus.OK);
     }
 
-
+    @GetMapping(value = "/{userId}/posts/{postId}/comments", produces = "application/json")
+    public ResponseEntity<CommentDto> getCommentsOfPost(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+        return new ResponseEntity(commentService.listAllCommentsOfPost(postId), HttpStatus.OK);
+    }
 
 
 }

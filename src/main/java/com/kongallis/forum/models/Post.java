@@ -72,4 +72,12 @@ public class Post {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 }
