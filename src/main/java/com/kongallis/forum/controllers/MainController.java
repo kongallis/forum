@@ -4,7 +4,6 @@ package com.kongallis.forum.controllers;
 import com.kongallis.forum.dto.CommentDto;
 import com.kongallis.forum.dto.PostDto;
 import com.kongallis.forum.dto.UserDto;
-import com.kongallis.forum.models.User;
 import com.kongallis.forum.services.CommentService;
 import com.kongallis.forum.services.PostService;
 import com.kongallis.forum.services.UserServiceImpl;
@@ -13,9 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.DefaultValue;
+
 import javax.ws.rs.QueryParam;
-import java.util.List;
 import java.util.Optional;
 
 @RestController

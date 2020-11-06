@@ -27,7 +27,7 @@ public class User {
 
 
 
-    @OneToMany(targetEntity=Post.class, mappedBy="userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity=Post.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> postList;
 
     @OneToMany(targetEntity=Comment.class, mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)

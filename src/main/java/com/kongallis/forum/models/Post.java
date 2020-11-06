@@ -27,7 +27,7 @@ public class Post {
 //    @JoinColumn(name="user_id", referencedColumnName = "user_id")
     @ManyToOne()
     @JoinColumn
-    private User userId;
+    private User user;
 
     @OneToMany(targetEntity=Comment.class, mappedBy="post", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> commentList;
@@ -65,12 +65,12 @@ public class Post {
         this.createdDate = createdDate;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Comment> getCommentList() {

@@ -26,7 +26,7 @@ public class CommentService {
 
     @Transactional
     public List<CommentDto> listAllCommentsOfPost(Long postId) {
-//        User user = userRepository.findById(userId).get();
+
         List<Comment> comments = postRepository.findById(postId).get().getCommentList();
 
         return comments.stream().map(this::mapFromCommentToDto).collect(toList());

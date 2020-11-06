@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -28,10 +30,10 @@ public class PostService {
 
     @Transactional
     public List<PostDto> listAllPostsByUserId(Long userId) {
-        User user = userRepository.findById(userId).get();
-        List<Post> posts = user.getPostList();
+        List<Post> posts = postRepository.findAll();
+         posts = posts.stream().filter(post ->
+                post.getUser().getId() == userId).collect(Collectors.toList());
         return posts.stream().map(this::mapFromPostToDto).collect(toList());
-
     }
     
 
@@ -41,7 +43,7 @@ public class PostService {
         postDto.setTitle(post.getTitle());
         postDto.setCreatedDate(post.getCreatedDate());
         postDto.setBody(post.getBody());
-        postDto.setUserId(post.getUserId().getId());
+        postDto.setUserId(post.getUser().getId());
         return postDto;
     }
 
