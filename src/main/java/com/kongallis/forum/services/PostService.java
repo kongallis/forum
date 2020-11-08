@@ -6,6 +6,7 @@ import com.kongallis.forum.dao.UserRepository;
 import com.kongallis.forum.dto.PostDto;
 import com.kongallis.forum.dto.UserDto;
 import com.kongallis.forum.exceptions.PostNotFoundException;
+import com.kongallis.forum.exceptions.UserNotFoundException;
 import com.kongallis.forum.models.Post;
 import com.kongallis.forum.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,21 +49,15 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto readSinglePostFromSingleUser(Long userId, Long postId) {
-        User user = userRepository.findById(userId).get();
+    public PostDto readSinglePostFromSingleUser(Long userId, Long postId) throws PostNotFoundException{
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("LOG MESSAGE: User with id " + userId + " was not found."));
         List<Post> posts = user.getPostList();
-        boolean foundPost = false;
+
         for (Post singlePost  : posts) {
             if (singlePost.getPostId() == postId) {
-                foundPost = true;
-                break;
+                return mapFromPostToDto(postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("LOG MESSAGE: Post with id " + postId + " could not be extracted.")));
             }
         }
-        if (foundPost) {
-            return mapFromPostToDto(postRepository.findById(postId).get());
-        }
-        throw new PostNotFoundException("Post not found....");
+        return null;
     }
-
-
 }

@@ -4,6 +4,8 @@ import com.kongallis.forum.dao.PostRepository;
 import com.kongallis.forum.dao.UserRepository;
 import com.kongallis.forum.dto.CommentDto;
 import com.kongallis.forum.dto.PostDto;
+import com.kongallis.forum.exceptions.PostNotFoundException;
+import com.kongallis.forum.exceptions.UserNotFoundException;
 import com.kongallis.forum.models.Comment;
 import com.kongallis.forum.models.Post;
 import com.kongallis.forum.models.User;
@@ -26,8 +28,8 @@ public class CommentService {
 
     @Transactional
     public List<CommentDto> listAllCommentsOfPost(Long postId) {
-
-        List<Comment> comments = postRepository.findById(postId).get().getCommentList();
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("LOG MESSAGE: Post with id " + postId + " was not found."));
+        List<Comment> comments =post.getCommentList();
 
         return comments.stream().map(this::mapFromCommentToDto).collect(toList());
 

@@ -32,7 +32,6 @@ public class MainController {
     @GetMapping(produces = "application/json")
     public ResponseEntity getUsers(@QueryParam("page") Optional<Integer> page, @QueryParam("limit") Optional<Integer> limit) {
         if (page.isPresent() && limit.isPresent()) {
-
             return new ResponseEntity<>(userService.getAllUsersPaginated(page.get(), limit.get()), HttpStatus.OK);
         }
         return new ResponseEntity<>(userService.listAllUsers(), HttpStatus.OK);
@@ -53,7 +52,12 @@ public class MainController {
 
     @GetMapping(value = "/{userId}/posts/{postId}", produces = "application/json")
     public ResponseEntity<PostDto> getSinglePostOfUser(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
-                return new ResponseEntity(postService.readSinglePostFromSingleUser(userId, postId), HttpStatus.OK);
+        PostDto response = postService.readSinglePostFromSingleUser(userId, postId);
+        if (response == null) {
+            String message = String.format("WARNING: No post with id %d was found for the user with id %d", postId, userId);
+            return new ResponseEntity(message, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{userId}/posts/{postId}/comments", produces = "application/json")

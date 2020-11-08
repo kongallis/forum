@@ -6,6 +6,8 @@ import com.kongallis.forum.dto.UserDto;
 import com.kongallis.forum.exceptions.UserNotFoundException;
 import com.kongallis.forum.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
@@ -39,8 +41,8 @@ public class UserServiceImpl {
     }
 
     @Transactional
-    public UserDto readSingleUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("For id " + id));
+    public UserDto readSingleUser(Long id) throws UserNotFoundException{
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("LOG MESSAGE: User with id " + id + " was not found."));
         return mapFromUserToDto(user);
     }
 
