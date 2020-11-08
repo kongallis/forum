@@ -31,9 +31,8 @@ public class PostService {
 
     @Transactional
     public List<PostDto> listAllPostsByUserId(Long userId) {
-        List<Post> posts = postRepository.findAll();
-         posts = posts.stream().filter(post ->
-                post.getUser().getId() == userId).collect(Collectors.toList());
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id " + userId + " was not found."));
+        List<Post> posts = user.getPostList();
         return posts.stream().map(this::mapFromPostToDto).collect(toList());
     }
     
@@ -50,14 +49,12 @@ public class PostService {
 
     @Transactional
     public PostDto readSinglePostFromSingleUser(Long userId, Long postId) throws PostNotFoundException{
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("LOG MESSAGE: User with id " + userId + " was not found."));
-        List<Post> posts = user.getPostList();
-
-        for (Post singlePost  : posts) {
-            if (singlePost.getPostId() == postId) {
-                return mapFromPostToDto(postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("LOG MESSAGE: Post with id " + postId + " could not be extracted.")));
-            }
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id " + userId + " was not found."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post with id " + postId + " was not found for the user with id: " + userId));
+        if (userId == post.getUser().getId()) {
+            return mapFromPostToDto(post);
+        } else {
+            throw new PostNotFoundException("Post with id " + postId + " was not found for the user with id: " + userId);
         }
-        return null;
     }
 }

@@ -27,12 +27,14 @@ public class CommentService {
     UserRepository userRepository;
 
     @Transactional
-    public List<CommentDto> listAllCommentsOfPost(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("LOG MESSAGE: Post with id " + postId + " was not found."));
+    public List<CommentDto> listAllCommentsOfPost(Long userId, Long postId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with id " + userId + " was not found."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post with id " + postId + " was not found."));
+        if (post.getUser().getId() != userId) {
+            throw new PostNotFoundException("Post with id " + postId + " was not found for the user with id " + userId);
+        }
         List<Comment> comments =post.getCommentList();
-
         return comments.stream().map(this::mapFromCommentToDto).collect(toList());
-
     }
 
 

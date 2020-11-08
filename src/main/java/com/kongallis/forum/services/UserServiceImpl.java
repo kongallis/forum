@@ -42,7 +42,7 @@ public class UserServiceImpl {
 
     @Transactional
     public UserDto readSingleUser(Long id) throws UserNotFoundException{
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("LOG MESSAGE: User with id " + id + " was not found."));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " was not found."));
         return mapFromUserToDto(user);
     }
 
