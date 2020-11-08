@@ -18,8 +18,6 @@ public class User {
     @NotBlank
     private String userName;
     @NotBlank
-    private String name;
-    @NotBlank
     private String password;
     @NotBlank
     private String email;
@@ -89,11 +87,6 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    // Implement getter for the Full Name
-    public String getName() {
-        return String.format("%s %s", this.getFirstName(), this.getLastName());
     }
 
     public List<Post> getPostList() {

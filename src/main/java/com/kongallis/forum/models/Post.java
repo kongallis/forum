@@ -20,11 +20,6 @@ public class Post {
     private String body;
     private Date createdDate;
 
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-//    private User userId;
-
-//    @JoinColumn(name="user_id", referencedColumnName = "user_id")
     @ManyToOne()
     @JoinColumn
     private User user;

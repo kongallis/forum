@@ -4,10 +4,9 @@ package com.kongallis.forum.controllers;
 import com.kongallis.forum.dto.CommentDto;
 import com.kongallis.forum.dto.PostDto;
 import com.kongallis.forum.dto.UserDto;
-import com.kongallis.forum.exceptions.PostNotFoundException;
 import com.kongallis.forum.services.CommentService;
 import com.kongallis.forum.services.PostService;
-import com.kongallis.forum.services.UserServiceImpl;
+import com.kongallis.forum.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ import java.util.Optional;
 public class MainController {
 
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
     @Autowired
     PostService postService;
     @Autowired
@@ -55,10 +54,6 @@ public class MainController {
     @GetMapping(value = "/{userId}/posts/{postId}", produces = "application/json")
     public ResponseEntity<PostDto> getSinglePostOfUser(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
         PostDto response = postService.readSinglePostFromSingleUser(userId, postId);
-//        if (response == null) {
-//            String message = String.format("WARNING: No post with id %d was found for the user with id %d", postId, userId);
-//            return new ResponseEntity(message, HttpStatus.NOT_FOUND);
-//        }
         return new ResponseEntity(response, HttpStatus.OK);
     }
 

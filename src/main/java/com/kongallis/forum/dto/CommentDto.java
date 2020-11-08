@@ -1,11 +1,14 @@
 package com.kongallis.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.Date;
 
+@JsonPropertyOrder({"id", "postId","createdAt", "email", "avatar", "name", "body" })
 public class CommentDto {
 
+    @JsonProperty("id")
     private Long commentId;
     private Long postId;
     private Date createdAt;
@@ -18,8 +21,8 @@ public class CommentDto {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
+    public void setCommentId(Long id) {
+        this.commentId = id;
     }
 
     public Long getPostId() {

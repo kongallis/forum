@@ -41,7 +41,7 @@ public class PostService {
         PostDto postDto = new PostDto();
         postDto.setId(post.getPostId());
         postDto.setTitle(post.getTitle());
-        postDto.setCreatedDate(post.getCreatedDate());
+        postDto.setCreatedAt(post.getCreatedDate());
         postDto.setBody(post.getBody());
         postDto.setUserId(post.getUser().getId());
         return postDto;

@@ -46,7 +46,7 @@ public class CommentService {
         commentDto.setBody(comment.getBody());
         commentDto.setEmail(comment.getUser().getEmail());
         commentDto.setAvatar(comment.getUser().getAvatar());
-        commentDto.setName(comment.getUser().getName());
+        commentDto.setName( String.format("%s %s", comment.getUser().getFirstName(), comment.getUser().getLastName()));
         return commentDto;
     }
 }

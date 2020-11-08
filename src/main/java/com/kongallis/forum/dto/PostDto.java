@@ -7,11 +7,10 @@ import java.util.Date;
 
 public class PostDto {
 
-    private Long userId;
-    @JsonProperty("postId")
     private Long id;
+    private Long userId;
+    private Date createdAt;
     private String title;
-    private Date createdDate;
     private String body;
 
     public String getTitle() {
@@ -22,12 +21,12 @@ public class PostDto {
         this.title = title;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getBody() {

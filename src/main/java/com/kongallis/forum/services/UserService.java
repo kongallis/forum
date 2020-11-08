@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @Transactional
 @Service
-public class UserServiceImpl {
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -34,7 +34,7 @@ public class UserServiceImpl {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setUsername(user.getUserName());
-        userDto.setName(user.getName());
+        userDto.setName(String.format("%s %s", user.getFirstName(), user.getLastName()));
         userDto.setEmail(user.getEmail());
         userDto.setAvatar(user.getAvatar());
         return userDto;
