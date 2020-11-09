@@ -11,30 +11,14 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e){
+    @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class, CommentNotFoundException.class})
+    public ResponseEntity<Object> handleNotFoundExceptions(RuntimeException e){
         HttpStatus notFound = HttpStatus.NOT_FOUND;
         ApiException apiException = new ApiException(e.getMessage(),
                 notFound,
-                ZonedDateTime.now(ZoneId.of("Z")));
+                ZonedDateTime.now(ZoneId.of("Europe/Athens")));
         return new ResponseEntity<>(apiException, notFound);
     }
 
-    @ExceptionHandler(value = PostNotFoundException.class)
-    public ResponseEntity<Object> handlePostNotFoundException(PostNotFoundException e){
-        HttpStatus notFound = HttpStatus.NOT_FOUND;
-        ApiException apiException = new ApiException(e.getMessage(),
-                notFound,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        return new ResponseEntity<>(apiException, notFound);
-    }
 
-    @ExceptionHandler(value = CommentNotFoundException.class)
-    public ResponseEntity<Object> handleCommentNotFoundException(CommentNotFoundException e){
-        HttpStatus notFound = HttpStatus.NOT_FOUND;
-        ApiException apiException = new ApiException(e.getMessage(),
-                notFound,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        return new ResponseEntity<>(apiException, notFound);
-    }
 }
