@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
 
+/**
+ * The custom exception that we throw in our application
+ */
 public class ApiException {
 
     private final String message;

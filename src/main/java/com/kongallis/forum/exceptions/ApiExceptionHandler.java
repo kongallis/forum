@@ -11,6 +11,12 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
+    /**
+     * Handles and throws custom exceptions
+     *
+     * @param e the runtime error
+     * @return a custom exception
+     */
     @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class, CommentNotFoundException.class})
     public ResponseEntity<Object> handleNotFoundExceptions(RuntimeException e){
         HttpStatus notFound = HttpStatus.NOT_FOUND;
